@@ -8,6 +8,21 @@ import Table from "components/Table/Table.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
+import firebase from 'firebase/app';
+import 'firebase/database';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCymwfasOIduBIlff5Axu-U_II1SFH1mpA",
+  authDomain: "find-research-studies.firebaseapp.com",
+  databaseURL: "https://find-research-studies.firebaseio.com/",
+  projectId: "find-research-studies",
+  storageBucket: "",
+  messagingSenderId: "261332989508",
+  appId: "1:261332989508:web:a4c08614fc8efad90bae11"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database().ref();
 
 const styles = {
   cardCategoryWhite: {
