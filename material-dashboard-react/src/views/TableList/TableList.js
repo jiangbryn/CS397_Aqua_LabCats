@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -14,15 +14,16 @@ import 'firebase/database';
 const firebaseConfig = {
   apiKey: "AIzaSyCymwfasOIduBIlff5Axu-U_II1SFH1mpA",
   authDomain: "find-research-studies.firebaseapp.com",
-  databaseURL: "https://find-research-studies.firebaseio.com/",
+  databaseURL: "https://find-research-studies.firebaseio.com",
   projectId: "find-research-studies",
-  storageBucket: "",
+  storageBucket: "find-research-studies.appspot.com",
   messagingSenderId: "261332989508",
-  appId: "1:261332989508:web:a4c08614fc8efad90bae11"
+  appId: "1:261332989508:web:a4c08614fc8efad90bae11",
+  measurementId: "G-SZ4EF3S9C4"
 };
 
 firebase.initializeApp(firebaseConfig);
-const db = firebase.database().ref();
+const db = firebase.database();
 
 const styles = {
   cardCategoryWhite: {
@@ -56,8 +57,24 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
+
+
 export default function TableList() {
   const classes = useStyles();
+  const [studies, setStudies] = useState([]);
+
+  useEffect(() => {
+    const handleData = snap => {
+      let temp=Object.values(snap.val());
+      setStudies(temp);
+    }
+    db.ref('studies').on('value', handleData, error => alert(error));
+    return () => { db.ref('studies').off('value', handleData); };
+  },[]);
+  console.log(studies);
+  //const makeHead = studies === null ? null : Object.keys(studies[0]); 
+  //const makeList = studies.map(x => x.)
+  //console.log(makeHead);
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
@@ -71,53 +88,8 @@ export default function TableList() {
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={["Name", "Country", "City", "Salary"]}
-              tableData={[
-                ["Dakota Rice", "Niger", "Oud-Turnhout", "$36,738"],
-                ["Minerva Hooper", "Curaçao", "Sinaai-Waas", "$23,789"],
-                ["Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                ["Philip Chaney", "Korea, South", "Overland Park", "$38,735"],
-                ["Doris Greene", "Malawi", "Feldkirchen in Kärnten", "$63,542"],
-                ["Mason Porter", "Chile", "Gloucester", "$78,615"]
-              ]}
-            />
-          </CardBody>
-        </Card>
-      </GridItem>
-      <GridItem xs={12} sm={12} md={12}>
-        <Card plain>
-          <CardHeader plain color="primary">
-            <h4 className={classes.cardTitleWhite}>
-              Table on Plain Background
-            </h4>
-            <p className={classes.cardCategoryWhite}>
-              Here is a subtitle for this table
-            </p>
-          </CardHeader>
-          <CardBody>
-            <Table
-              tableHeaderColor="primary"
-              tableHead={["ID", "Name", "Country", "City", "Salary"]}
-              tableData={[
-                ["1", "Dakota Rice", "$36,738", "Niger", "Oud-Turnhout"],
-                ["2", "Minerva Hooper", "$23,789", "Curaçao", "Sinaai-Waas"],
-                ["3", "Sage Rodriguez", "$56,142", "Netherlands", "Baileux"],
-                [
-                  "4",
-                  "Philip Chaney",
-                  "$38,735",
-                  "Korea, South",
-                  "Overland Park"
-                ],
-                [
-                  "5",
-                  "Doris Greene",
-                  "$63,542",
-                  "Malawi",
-                  "Feldkirchen in Kärnten"
-                ],
-                ["6", "Mason Porter", "$78,615", "Chile", "Gloucester"]
-              ]}
+              tableHead={[]}
+              tableData={[]}
             />
           </CardBody>
         </Card>
