@@ -71,7 +71,7 @@ export default function TableList() {
     db.ref('studies').on('value', handleData, error => alert(error));
     return () => { db.ref('studies').off('value', handleData); };
   },[]);
-  console.log(studies);
+  //console.log(studies);
   const makeList = studies.map(x => [x.sid,x.title,x.time,x.requirement,x.payment,x.location,x.description]);
   //console.log(makeHead);
   return (
