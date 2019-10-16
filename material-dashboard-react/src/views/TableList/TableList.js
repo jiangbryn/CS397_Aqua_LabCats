@@ -80,7 +80,7 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-export default function TableList() {
+const TableList = () => {
   const classes = useStyles();
   const [studies, setStudies] = useState([]);
 
@@ -146,4 +146,6 @@ export default function TableList() {
       </GridItem>
     </GridContainer>
   );
-}
+};
+
+export default TableList;

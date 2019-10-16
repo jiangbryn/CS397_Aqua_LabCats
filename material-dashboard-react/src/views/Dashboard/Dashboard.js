@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
 // @material-ui/core
@@ -18,11 +18,13 @@ import EventIcon from '@material-ui/icons/Event';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import Code from "@material-ui/icons/Code";
 import Cloud from "@material-ui/icons/Cloud";
-
+import firebase from "firebase/app";
+import "firebase/database";
 // core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import Table from "components/Table/Table.js";
+import TableList from "views/TableList/TableList.js";
 import Tasks from "components/Tasks/Tasks.js";
 import CustomTabs from "components/CustomTabs/CustomTabs.js";
 import Danger from "components/Typography/Danger.js";
@@ -37,9 +39,39 @@ import { bugs, website, server } from "variables/general.js";
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 
 const useStyles = makeStyles(styles);
+const db = firebase.database();
 
 export default function Dashboard() {
   const classes = useStyles();
+  const [studies, setStudies] = useState([]);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const handleStudies = snap => {
+      let temp = Object.values(snap.val());
+      setStudies(temp);
+    };
+    const handleUsers = snap => {
+      let temp = Object.values(snap.val());
+      setUsers(temp);
+    };
+    db.ref("studies").on("value", handleStudies, error => alert(error));
+    db.ref("users").on("value", handleUsers, error => alert(error));
+    return () => {
+      db.ref("studies").off("value", handleStudies);
+      db.ref("users").off("value", handleUsers);
+    };
+  }, []);
+  const studyId = users.filter((x)=>x.uid == "001");
+  const userStudy = studies.filter((x)=>studyId.every((y)=>y!=x.sid));
+  const makeList = userStudy.map(x => [
+    x.sid,
+    x.title,
+    x.time,
+    x.requirement,
+    x.payment,
+    x.location
+  ]);
   return (
     <div>
       <GridContainer>
@@ -52,40 +84,44 @@ export default function Dashboard() {
                 tabName: "Upcoming Studies",
                 tabIcon: EventIcon,
                 tabContent: (
-                  <Card>
-                    <CardBody>
-                      <Table
-                        tableHeaderColor="warning"
-                        tableHead={["ID", "Name", "Salary", "Country"]}
-                        tableData={[
-                          ["1", "Upcoming Study 1", "$36,738", "Niger"],
-                          ["2", "Upcoming Study 2", "$23,789", "Curaçao"],
-                          ["3", "Upcoming Study 3", "$56,142", "Netherlands"],
-                          ["4", "Upcoming Study 4", "$38,735", "Korea, South"]
-                        ]}
-                      />
-                    </CardBody>
-                  </Card>
+                <Card>
+                  <CardBody>
+                    <Table
+                      tableHeaderColor="primary"
+                      tableHead={[
+                        "Study ID",
+                        "title",
+                        "time",
+                        "requirement",
+                        "payment",
+                        "location",
+                      ]}
+                      tableData={makeList}
+                    />
+                  </CardBody>
+                </Card>
                 )
               },
               {
                 tabName: "Past Studies",
                 tabIcon: ScheduleIcon,
                 tabContent: (
-                  <Card>
-                    <CardBody>
-                      <Table
-                        tableHeaderColor="warning"
-                        tableHead={["ID", "Name", "Salary", "Country"]}
-                        tableData={[
-                          ["1", "Past Study 1", "$36,738", "Niger"],
-                          ["2", "Past Study 2", "$23,789", "Curaçao"],
-                          ["3", "Past Study 3", "$56,142", "Netherlands"],
-                          ["4", "Past Study 4", "$38,735", "Korea, South"]
-                        ]}
-                      />
-                    </CardBody>
-                  </Card>
+                <Card>
+                  <CardBody>
+                    <Table
+                      tableHeaderColor="primary"
+                      tableHead={[
+                        "Study ID",
+                        "title",
+                        "time",
+                        "requirement",
+                        "payment",
+                        "location",
+                      ]}
+                      tableData={makeList}
+                    />
+                  </CardBody>
+                </Card>
                 )
               }
             ]}
