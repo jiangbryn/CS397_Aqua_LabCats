@@ -108,41 +108,7 @@ const TableList = () => {
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
-        <StudyTabs />
-        <StudyTabs />
-      </GridItem>
-      <GridItem xs={12} sm={12} md={12}>
-        <StudyTabs />
-        <StudyTabs />
-      </GridItem>
-      <GridItem xs={12} sm={12} md={12}>
-        <StudyTabs />
-        <StudyTabs />
-      </GridItem>
-      <GridItem xs={12} sm={12} md={12}>
-        <Card>
-          <CardHeader color="primary">
-            <h4 className={classes.cardTitleWhite}>Simple Table</h4>
-            <p className={classes.cardCategoryWhite}>
-              Here is a subtitle for this table
-            </p>
-          </CardHeader>
-          <CardBody>
-            <Table
-              tableHeaderColor="primary"
-              tableHead={[
-                "Study ID",
-                "title",
-                "time",
-                "requirement",
-                "payment",
-                "location",
-                "description"
-              ]}
-              tableData={makeList}
-            />
-          </CardBody>
-        </Card>
+        {studies.map(study => <StudyTabs key={study.sid} study={study}/>)}
       </GridItem>
     </GridContainer>
   );
