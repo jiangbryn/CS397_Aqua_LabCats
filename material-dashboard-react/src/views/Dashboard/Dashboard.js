@@ -21,6 +21,7 @@ import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import Table from "components/Table/Table.js";
 import Tasks from "components/Tasks/Tasks.js";
+import StudyTabs from "components/StudyTabs/StudyTabs.js";
 import CustomTabs from "components/CustomTabs/CustomTabs.js";
 import Danger from "components/Typography/Danger.js";
 import Card from "components/Card/Card.js";
@@ -39,6 +40,11 @@ export default function Dashboard() {
   const classes = useStyles();
   return (
     <div>
+      {/* <GridItem xs={12} sm={12} md={6}>
+        <CustomTabs>
+          <StudyTabs />
+        </CustomTabs>
+      </GridItem> */}
       <GridContainer>
         <GridItem xs={12} sm={12} md={6}>
           <CustomTabs
@@ -46,7 +52,7 @@ export default function Dashboard() {
             headerColor="primary"
             tabs={[
               {
-                tabName: "Bugs",
+                tabName: "Study",
                 tabIcon: BugReport,
                 tabContent: (
                   <Tasks
