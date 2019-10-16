@@ -72,8 +72,7 @@ export default function TableList() {
     return () => { db.ref('studies').off('value', handleData); };
   },[]);
   console.log(studies);
-  //const makeHead = studies === null ? null : Object.keys(studies[0]); 
-  //const makeList = studies.map(x => x.)
+  const makeList = studies.map(x => [x.sid,x.title,x.time,x.requirement,x.payment,x.location,x.description]);
   //console.log(makeHead);
   return (
     <GridContainer>
@@ -88,8 +87,8 @@ export default function TableList() {
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={[]}
-              tableData={[]}
+              tableHead={["Study ID","title","time","requirement","payment","location","description"]}
+              tableData={makeList}
             />
           </CardBody>
         </Card>
