@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import Button from "components/CustomButtons/Button.js";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -42,6 +43,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const displayTable = studyName => {
+  alert(studyName)
+}
+
 const RecipeReviewCard = ({study}) => {
   console.log("here",study);
   const classes = useStyles();
@@ -82,6 +87,9 @@ const RecipeReviewCard = ({study}) => {
           </Typography>
           <Typography paragraph>
             Payment : {study.payment}
+          </Typography>
+          <Typography paragraph style={{textAlign: 'center'}}>
+          <Button color="info" onClick={() => displayTable(study.title)}>Reserve Study</Button>
           </Typography>
         </CardContent>
       </Collapse>
