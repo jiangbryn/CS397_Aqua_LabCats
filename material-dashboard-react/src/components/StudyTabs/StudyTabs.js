@@ -16,6 +16,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Popup from "./Popup";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -40,21 +41,41 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     backgroundColor: red[500]
-  }
-}));
-
-const displayTable = studyName => {
-  alert(studyName)
+  },
+  popup: {
+  position: "fixed",
+  width: '100%',
+  height: '100%',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  margin: "auto",
+  backgroundColor: 'rgba(0,0,0, 0.5)'
+},
+popup_inner: {
+  position: "absolute",
+  left: '25%',
+  right: '25%',
+  top: '25%',
+  bottom: '25%',
+  margin: "auto",
+  background: "white"
 }
+}));
 
 const RecipeReviewCard = ({study}) => {
   console.log("here",study);
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const [showPopup, setPopup] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  const togglePopup = () => {
+    setPopup(!showPopup);
+  }
 
   return (
     <Card className={classes.card}>
@@ -89,8 +110,15 @@ const RecipeReviewCard = ({study}) => {
             Payment : {study.payment}
           </Typography>
           <Typography paragraph style={{textAlign: 'center'}}>
-          <Button color="info" onClick={() => displayTable(study.title)}>Reserve Study</Button>
+          <Button color="info" onClick={togglePopup}>Reserve Study</Button>
           </Typography>
+          {showPopup ?
+          <Popup
+            text='Close Me'
+            closePopup={togglePopup}
+          />
+          : null
+          }
         </CardContent>
       </Collapse>
     </Card>
