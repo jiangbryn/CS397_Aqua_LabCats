@@ -1,10 +1,11 @@
 import React from 'react';
+import Mycalendar from 'components/Calendar/calendars'
 
 const Popup = () => {
     return (
       <div className='popup'>
         <div className='popup_inner'>
-          <h1>"Popup"</h1>
+          <Mycalendar/>
         </div>
       </div>
     );

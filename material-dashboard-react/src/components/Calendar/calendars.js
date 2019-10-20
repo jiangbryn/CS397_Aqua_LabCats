@@ -2,7 +2,7 @@ import moment from 'moment'
 import events from 'events'
 import c_ss from 'react-big-calendar/lib/css/react-big-calendar.css'
 import { Calendar, momentLocalizer ,Views  } from 'react-big-calendar'
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 
 const localizer = momentLocalizer(moment)
@@ -21,4 +21,4 @@ const MyCalendar = props => (
   </div>
 )
 
-export {MyCalendar}
+export default MyCalendar
