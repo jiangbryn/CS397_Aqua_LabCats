@@ -42,30 +42,9 @@ const useStyles = makeStyles(theme => ({
   avatar: {
     backgroundColor: red[500]
   },
-  popup: {
-  position: "fixed",
-  width: '100%',
-  height: '100%',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  margin: "auto",
-  backgroundColor: 'rgba(0,0,0, 0.5)'
-},
-popup_inner: {
-  position: "absolute",
-  left: '25%',
-  right: '25%',
-  top: '25%',
-  bottom: '25%',
-  margin: "auto",
-  background: "white"
-}
 }));
 
 const RecipeReviewCard = ({study}) => {
-  console.log("here",study);
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [showPopup, setPopup] = React.useState(false);
@@ -113,11 +92,8 @@ const RecipeReviewCard = ({study}) => {
           <Button color="info" onClick={togglePopup}>Reserve Study</Button>
           </Typography>
           {showPopup ?
-          <Popup
-            text='Close Me'
-            closePopup={togglePopup}
-          />
-          : null
+            <Popup text='Close Me' closePopup={togglePopup}/>
+            : null
           }
         </CardContent>
       </Collapse>

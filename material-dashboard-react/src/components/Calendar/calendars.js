@@ -7,7 +7,7 @@ import React from "react";
 
 const localizer = momentLocalizer(moment)
 
-const MyCalendar = props => (
+const MyCalendar = () => (
   <div>
     <Calendar
       localizer={localizer}
