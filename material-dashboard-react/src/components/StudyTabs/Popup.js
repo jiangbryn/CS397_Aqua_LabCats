@@ -1,12 +1,11 @@
 import React from 'react';
-import { makeStyles } from "@material-ui/core/styles";
 import Mycalendar from 'components/Calendar/calendars';
 import Button from "components/CustomButtons/Button.js";
 
-const Popup = ({closePopup}) => {
+const Popup = ({closePopup, db, sid}) => {
     return (
       <div>
-        <Mycalendar />
+        <Mycalendar db={db} sid={sid}/>
         <Button color="info" onClick={closePopup}>Close Me</Button>
       </div>
     );
