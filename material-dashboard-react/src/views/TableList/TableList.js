@@ -28,6 +28,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
+const uid = "001";
+
 const styles = {
   cardCategoryWhite: {
     "&,& a,& a:hover,& a:focus": {
@@ -108,7 +110,7 @@ const TableList = () => {
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
-        {studies.map(study => <StudyTabs key={study.sid} study={study} db={db} sid={study.sid}/>)}
+        {studies.map(study => <StudyTabs key={study.sid} study={study} db={db} sid={study.sid} uid={uid}/>)}
       </GridItem>
     </GridContainer>
   );
