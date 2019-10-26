@@ -63,14 +63,42 @@ export default function Dashboard() {
     };
   }, []);
   const studyId = users.filter((x)=>x.uid == "001");
-  const userStudy = studies.filter((x)=>studyId.every((y)=>y!=x.sid));
-  const makeList = userStudy.map(x => [
+
+  var currDate = new Date("10/25/2019 12:00");
+  var study = studyId[0];
+
+  var studyIds = [];
+  var pastStudiesIds = [];
+  var upcomingStudiesIds = [];
+  var upcomingStudies = [];
+  var pastStudies = [];
+  if (study != undefined) {
+    studyIds = Object.keys(study["studies"]);
+    pastStudiesIds = studyIds.filter((x)=>new Date(study["studies"][x]["start"]) < currDate);
+    upcomingStudiesIds = studyIds.filter((x)=>new Date(study["studies"][x]["start"]) >= currDate);
+    upcomingStudies = studies.filter((x)=>upcomingStudiesIds.every((y)=>y==x.sid));
+    pastStudies = studies.filter((x)=>pastStudiesIds.every((y)=>y==x.sid));
+  }
+
+  const pastList = pastStudies.map(x => [
     x.sid,
     x.title,
     x.time,
     x.requirement,
     x.payment,
-    x.location
+    x.location,
+    study["studies"][x.sid]["start"],
+    study["studies"][x.sid]["end"]
+  ]);
+  const futureList = upcomingStudies.map(x => [
+    x.sid,
+    x.title,
+    x.time,
+    x.requirement,
+    x.payment,
+    x.location,
+    study["studies"][x.sid]["start"],
+    study["studies"][x.sid]["end"]
   ]);
   return (
     <div>
@@ -95,8 +123,10 @@ export default function Dashboard() {
                         "requirement",
                         "payment",
                         "location",
+                        "start date/time",
+                        "end date/time"
                       ]}
-                      tableData={makeList}
+                      tableData={futureList}
                     />
                   </CardBody>
                 </Card>
@@ -117,8 +147,10 @@ export default function Dashboard() {
                         "requirement",
                         "payment",
                         "location",
+                        "start date/time",
+                        "end date/time"
                       ]}
-                      tableData={makeList}
+                      tableData={pastList}
                     />
                   </CardBody>
                 </Card>
