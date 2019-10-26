@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import moment from 'moment'
-import c_ss from 'react-big-calendar/lib/css/react-big-calendar.css'
-import { Calendar, momentLocalizer ,Views  } from 'react-big-calendar'
+import moment from "moment";
+import c_ss from "react-big-calendar/lib/css/react-big-calendar.css";
+import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 
 import firebase from "firebase/app";
 import "firebase/database";
 
 const localizer = momentLocalizer(moment);
 
-const MyCalendar = ({db, sid}) => {
+const MyCalendar = ({ db, sid, uid }) => {
   const [studies, setStudies] = useState([]);
   const [users, setUsers] = useState([]);
 
@@ -29,24 +29,40 @@ const MyCalendar = ({db, sid}) => {
       db.ref("users").off("value", handleUsers);
     };
   }, []);
-  const study = studies.filter((x)=>x.sid === sid);
+
+  const study = studies.filter(x => x.sid === sid);
   const event = study[0];
   let events = [];
+
   const handleSelect = event => {
-    let time = {
-      "start":event.startdb,
-      "end":event.enddb,
-    };
-    let regist = {};
-    regist[event.id] = time;
-    var newPostKey = db.ref("users").child(event.id).child("studies").update([regist]);
-    console.log(regist);
+    var eventDate = new Date(event.enddb);
+    var now = new Date();
+    if (eventDate <= now) {
+      alert("Signup time has passed.");
+    } else {
+      let time = {
+        start: event.startdb,
+        end: event.enddb
+      };
+      //let regist = {};
+      //regist[event.id] = time;
+      const newPostKey = db
+        .ref("users")
+        .child(uid)
+        .child("studies")
+        .child(event.id);
+      if (window.confirm("Press OK to sign up for this study.")) {
+        newPostKey.set(time);
+      }
+    }
+    // console.log(regist);
     //window.confirm("press") ? txt = "you press ok" : txt = "you press cancel";
   };
-  if(event != null) {
+
+  if (event != null) {
     const title = event.title;
     const id = event.sid;
-    event.times.map( (y) => {
+    event.times.map(y => {
       let sigleTime = {};
       sigleTime["id"] = id;
       sigleTime["title"] = title;
@@ -57,14 +73,14 @@ const MyCalendar = ({db, sid}) => {
       events.push(sigleTime);
     });
   }
-  return(
+  return (
     <div>
       <Calendar
         onSelectEvent={handleSelect}
         selectable
         localizer={localizer}
-        views={['week','day']}
-        defaultView='week'
+        views={["week", "day"]}
+        defaultView="week"
         step={60}
         events={events}
         startAccessor="start"
@@ -74,4 +90,4 @@ const MyCalendar = ({db, sid}) => {
   );
 };
 
-export default MyCalendar
+export default MyCalendar;
