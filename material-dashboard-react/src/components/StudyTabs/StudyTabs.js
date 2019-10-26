@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const RecipeReviewCard = ({study}) => {
+const RecipeReviewCard = ({study, db, sid}) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [showPopup, setPopup] = React.useState(false);
@@ -92,7 +92,7 @@ const RecipeReviewCard = ({study}) => {
           <Button color="info" onClick={togglePopup}>Reserve Study</Button>
           </Typography>
           {showPopup ?
-            <Popup text='Close Me' closePopup={togglePopup}/>
+            <Popup text='Close Me' closePopup={togglePopup} db={db} sid={sid}/>
             : null
           }
         </CardContent>

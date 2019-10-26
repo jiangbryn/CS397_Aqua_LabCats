@@ -108,7 +108,7 @@ const TableList = () => {
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
-        {studies.map(study => <StudyTabs key={study.sid} study={study}/>)}
+        {studies.map(study => <StudyTabs key={study.sid} study={study} db={db} sid={study.sid}/>)}
       </GridItem>
     </GridContainer>
   );
