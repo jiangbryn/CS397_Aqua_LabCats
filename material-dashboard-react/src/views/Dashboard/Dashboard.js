@@ -64,7 +64,7 @@ export default function Dashboard() {
   }, []);
   const studyId = users.filter((x)=>x.uid == "001");
 
-  var currDate = new Date("10/25/2019 12:00");
+  var currDate = new Date();
   var study = studyId[0];
 
   var studyIds = [];
@@ -72,12 +72,12 @@ export default function Dashboard() {
   var upcomingStudiesIds = [];
   var upcomingStudies = [];
   var pastStudies = [];
-  if (study != undefined) {
+  if (study !== undefined) {
     studyIds = Object.keys(study["studies"]);
     pastStudiesIds = studyIds.filter((x)=>new Date(study["studies"][x]["start"]) < currDate);
     upcomingStudiesIds = studyIds.filter((x)=>new Date(study["studies"][x]["start"]) >= currDate);
-    upcomingStudies = studies.filter((x)=>upcomingStudiesIds.every((y)=>y==x.sid));
-    pastStudies = studies.filter((x)=>pastStudiesIds.every((y)=>y==x.sid));
+    upcomingStudies = studies.filter((x)=>upcomingStudiesIds.includes(x.sid));
+    pastStudies = studies.filter((x)=>pastStudiesIds.includes(x.sid));
   }
 
   const pastList = pastStudies.map(x => [
