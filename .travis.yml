@@ -10,4 +10,4 @@ script:
   - npm test [--a]
   after_success:
   - npm install -g firebase-tools
-  - firebase deploy --token 1//0foBzNXPg3jzwCgYIARAAGA8SNwF-L9IrWoUnAMu7g5s3heW4b6n1oSmryo3ybQzu6S9qlWvoI0_Ue8izSI3igyyvKqGWUIV-8hw --non-interactive
+  - firebase deploy --token "1//0foBzNXPg3jzwCgYIARAAGA8SNwF-L9IrWoUnAMu7g5s3heW4b6n1oSmryo3ybQzu6S9qlWvoI0_Ue8izSI3igyyvKqGWUIV-8hw" --non-interactive
