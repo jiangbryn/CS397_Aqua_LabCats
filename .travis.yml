@@ -6,8 +6,8 @@ before_install:
 script:
   - unset CI
   - npm install
-  - npm run build
   - npm test [--a]
+  - npm run build
 after_success:
   - npm install -g firebase-tools
   - firebase deploy --token $FIREBASE_TOKEN --non-interactive
