@@ -27,4 +27,7 @@ test('CustomTabs', () => {
 	    tabs={tabs}
 	  />
   )
+  fireEvent.click(getByTestId('tab1'))
+  //console.log(getByTestId('content0'))
+  expect(getByTestId('content0').textContent).toBe('Tab1')
 })
