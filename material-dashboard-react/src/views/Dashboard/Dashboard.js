@@ -115,6 +115,7 @@ export default function Dashboard() {
                 <Card>
                   <CardBody>
                     <Table
+                      data-cy="studies"
                       tableHeaderColor="primary"
                       tableHead={[
                         "Study ID",
