@@ -9,4 +9,9 @@ describe ('Test App', () => {
     cy.get('[data-cy=studies]').should('contain', 'Study ID');
   });
 
+  it('test interaction', () => {
+    cy.visit ('/');
+    cy.get('[data-cy=tabs]').click();
+    cy.get('[data-cy=studies]').should('contain' ,'The Gratton Lab');
+  });
 });

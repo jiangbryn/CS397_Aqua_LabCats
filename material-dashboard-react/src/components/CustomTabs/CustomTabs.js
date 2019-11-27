@@ -33,6 +33,7 @@ export default function CustomTabs(props) {
       <CardHeader color={headerColor} plain={plainTabs}>
         {title !== undefined ? <div className={cardTitle}>{title}</div> : null}
         <Tabs
+          data-cy="tabs"
           value={value}
           onChange={handleChange}
           classes={{

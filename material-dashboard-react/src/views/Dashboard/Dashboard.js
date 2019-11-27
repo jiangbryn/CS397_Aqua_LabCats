@@ -107,6 +107,7 @@ export default function Dashboard() {
           <CustomTabs
             title="Your Research Studies:"
             headerColor="primary"
+            data-cy="tabs"
             tabs={[
               {
                 tabName: "Upcoming Studies",
@@ -115,7 +116,6 @@ export default function Dashboard() {
                 <Card>
                   <CardBody>
                     <Table
-                      data-cy="studies"
                       tableHeaderColor="primary"
                       tableHead={[
                         "Study ID",
